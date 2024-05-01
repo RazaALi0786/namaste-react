@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard from "./";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 
@@ -18,14 +18,20 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/mapi/homepage/getCards?lat=26.87560&lng=80.91150"
     );
 
     const json = await data.json();
 
     // Optional Chaining
-    setListOfRestraunt(json?.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
+    setListOfRestraunt(
+      json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
+    setFilteredRestaurant(
+      json?.data?.success?.cards[4]?.gridWidget?.gridElements?.infoWithStyle
+        ?.restaurants
+    );
   };
 
   return listOfRestaurants.length === 0 ? (
